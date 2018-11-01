@@ -13,6 +13,31 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ActivityDefault">
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ButtonDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/btn_default_margin</item>
+    </style>
+
+    <style name="ButtonMain">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btn_main_height</item>
+        <item name="android:layout_margin">@dimen/btn_default_margin</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+    </style>
+
+    <style name="ButtonFab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
