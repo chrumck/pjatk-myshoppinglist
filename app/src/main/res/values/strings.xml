@@ -11,4 +11,11 @@
 
     <string name="appSettings_allowProductEdit">allowProductEdit</string>
     <string name="appSettings_allowProductEdit_title">Allow editing items</string>
+
+    <string name="product_price_label">Price:</string>
+    <string name="product_qty_label">Qty:</string>
+
+    <string name="sampleProduct_Name">Sample Product Name</string>
+    <string name="sampleProduct_price">69</string>
+    <string name="sampleProduct_qty">123</string>
 </resources>
