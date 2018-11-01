@@ -4,11 +4,11 @@
     android:title="@string/title_activity_settings"
     >
     <CheckBoxPreference
-        android:key="string/appSettings_allowProductAdd"
+        android:key="@string/appSettings_allowProductAdd"
         android:title="@string/appSettings_allowProductAdd_title"
         android:defaultValue="true" />
     <CheckBoxPreference
-        android:key="string/appSettings_allowProductEdit"
+        android:key="@string/appSettings_allowProductEdit"
         android:title="@string/appSettings_allowProductEdit_title"
         android:defaultValue="true" />
 </PreferenceScreen>

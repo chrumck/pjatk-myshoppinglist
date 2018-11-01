@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         findViewById(R.id.btn_showShoppingList).setOnClickListener(v ->
                 startActivity(new Intent(this, ProductListActivity.class)));
 
