@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/title_activity_settings"
+    >
+    <CheckBoxPreference
+        android:key="string/appSettings_allowProductAdd"
+        android:title="@string/appSettings_allowProductAdd_title"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="string/appSettings_allowProductEdit"
+        android:title="@string/appSettings_allowProductEdit_title"
+        android:defaultValue="true" />
+</PreferenceScreen>
