@@ -18,4 +18,5 @@
     <string name="sampleProduct_Name">Sample Product Name</string>
     <string name="sampleProduct_price">69</string>
     <string name="sampleProduct_qty">123</string>
+    <string name="title_activity_product_edit">EditActivity</string>
 </resources>

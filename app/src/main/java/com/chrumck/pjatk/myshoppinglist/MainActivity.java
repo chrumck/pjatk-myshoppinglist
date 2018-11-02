@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         findViewById(R.id.btn_showShoppingList).setOnClickListener(v ->
                 startActivity(new Intent(this, ProductListActivity.class)));

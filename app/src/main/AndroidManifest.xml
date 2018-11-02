@@ -39,6 +39,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
         </activity>
+        <activity
+            android:name=".ProductEditActivity"
+            android:label="Add / Edit"
+            android:parentActivityName=".ProductListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chrumck.pjatk.myshoppinglist.ProductListActivity" />
+        </activity>
     </application>
 
 </manifest>
