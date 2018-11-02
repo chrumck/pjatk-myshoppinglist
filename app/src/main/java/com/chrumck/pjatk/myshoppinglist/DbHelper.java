@@ -36,16 +36,6 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE);
-
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "Item1", 5, 6, false));
-        products.add(new Product(2, "Item2", 56.345677, 7, false));
-        products.add(new Product(3, "Item3", 566, 8, true));
-        products.add(new Product(4, "Item4", 5666, 9, true));
-
-        for (Product product : products) {
-            db.insert(TABLE_NAME, null, toContentValues(product));
-        }
     }
 
     @Override
@@ -60,7 +50,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         List<Product> products = new ArrayList<>();
         while (cursor.moveToNext()) {
-            products.add(fromCursor(cursor));
+            products.add(toProduct(cursor));
         }
         cursor.close();
 
@@ -69,16 +59,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void upsertProduct(Product product) {
         SQLiteDatabase db = this.getWritableDatabase();
-        if(getProductExists(db, product)) {
+        if (getProductExists(db, product)) {
             db.update(TABLE_NAME, toContentValues(product),
-                    COLUMN_NAME.id +" = ?", new String[] {Integer.toString(product.id)});
+                    COLUMN_NAME.id + " = ?", new String[]{Integer.toString(product.id)});
+        } else {
+            product.id =  (int)db.insert(TABLE_NAME, null, toContentValues(product));
         }
     }
 
     private static ContentValues toContentValues(Product product) {
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_NAME.id.toString(), product.id);
         values.put(COLUMN_NAME.name.toString(), product.name);
         values.put(COLUMN_NAME.price.toString(), product.price);
         values.put(COLUMN_NAME.quantity.toString(), product.quantity);
@@ -87,7 +78,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    private static Product fromCursor(Cursor cursor) {
+    private static Product toProduct(Cursor cursor) {
         int id = cursor.getInt(getColumnIndex(cursor, COLUMN_NAME.id));
         String name = cursor.getString(getColumnIndex(cursor, COLUMN_NAME.name));
         double price = cursor.getDouble(getColumnIndex(cursor, COLUMN_NAME.price));
