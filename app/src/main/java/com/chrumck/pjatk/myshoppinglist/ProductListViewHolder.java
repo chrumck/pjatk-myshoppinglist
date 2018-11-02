@@ -1,6 +1,7 @@
 package com.chrumck.pjatk.myshoppinglist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,7 +72,10 @@ public class ProductListViewHolder extends RecyclerView.ViewHolder implements Vi
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this.context, "Selected item is" + name.getText(), Toast.LENGTH_LONG)
-                .show();
+        if (!isEditEnabled) return;
+
+        Intent intent = new Intent(this.context, ProductEditActivity.class);
+        intent.putExtra(DbHelper.COLUMN_NAME.id.toString(), this.product.id);
+        context.startActivity(intent);
     }
 }

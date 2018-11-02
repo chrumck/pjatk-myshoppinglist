@@ -1,22 +1,28 @@
 <resources>
     <string name="app_name">My Shopping List</string>
 
-    <string name="title_activity_product_list">Shopping List</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_product_list">Shopping List</string>
+    <string name="title_activity_product_edit">EditActivity</string>
+
     <string name="btn_showShoppingList">Shopping List</string>
     <string name="btn_showSettings">Settings</string>
 
     <string name="appSettings_allowProductAdd">allowProductAdd</string>
     <string name="appSettings_allowProductAdd_title">Allow adding items</string>
-
     <string name="appSettings_allowProductEdit">allowProductEdit</string>
     <string name="appSettings_allowProductEdit_title">Allow editing items</string>
 
     <string name="product_price_label">Price:</string>
     <string name="product_qty_label">Qty:</string>
 
-    <string name="sampleProduct_Name">Sample Product Name</string>
-    <string name="sampleProduct_price">69</string>
-    <string name="sampleProduct_qty">123</string>
-    <string name="title_activity_product_edit">EditActivity</string>
+    <string name="product_edit_hint_name">Product Name</string>
+    <string name="product_edit_hint_price">Price</string>
+    <string name="product_edit_hint_qty">Quantity</string>
+    <string name="product_edit_label_bought">Bought:</string>
+
+    <string name="btn_Save">Save</string>
+    <string name="btn_Cancel">Cancel</string>
+    <string name="btn_Delete">Delete</string>
+
 </resources>

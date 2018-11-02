@@ -1,13 +1,19 @@
 package com.chrumck.pjatk.myshoppinglist;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.List;
 
@@ -24,10 +30,19 @@ public class ProductListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String addEnabledSettingKey = getResources().getString(R.string.appSettings_allowProductAdd);
+        boolean isAddEnabled = preferences.getBoolean(addEnabledSettingKey, true);
+
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar
-                .make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        if (isAddEnabled) {
+            fab.setOnClickListener(v -> startActivity(new Intent(this, ProductEditActivity.class)));
+        } else {
+            fab.setEnabled(false);
+            int disabledColor = ResourcesCompat.getColor(getResources(), R.color.buttonDisabled, null);
+            fab.setBackgroundTintList(ColorStateList.valueOf(disabledColor));
+        }
+
 
         recyclerView = findViewById(R.id.product_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

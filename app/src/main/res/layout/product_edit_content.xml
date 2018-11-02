@@ -8,4 +8,66 @@
     tools:context=".ProductEditActivity"
     tools:showIn="@layout/product_edit_activity">
 
+
+    <EditText
+        android:id="@+id/edit_name"
+        style="@style/EditTextDefault"
+        android:hint="@string/product_edit_hint_name"
+        android:inputType="textAutoCorrect"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_price"
+        style="@style/EditTextDefault"
+        android:hint="@string/product_edit_hint_price"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/edit_name" />
+
+    <EditText
+        android:id="@+id/edit_qty"
+        style="@style/EditTextDefault"
+        android:hint="@string/product_edit_hint_qty"
+        android:inputType="numberSigned"
+        app:layout_constraintTop_toBottomOf="@id/edit_price" />
+
+    <LinearLayout
+        style="@style/EditTextDefault"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/edit_qty">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="@string/product_edit_label_bought" />
+
+        <CheckBox
+            android:id="@+id/edit_bought"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/edit_btn_delete"
+        style="@style/ButtonDelete"
+        android:text="@string/btn_Delete"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_btn_cancel" />
+
+    <Button
+        android:id="@+id/edit_btn_cancel"
+        style="@style/ButtonDefault"
+        android:text="@string/btn_Cancel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_btn_save" />
+
+    <Button
+        android:id="@+id/edit_btn_save"
+        style="@style/ButtonSave"
+        android:text="@string/btn_Save"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

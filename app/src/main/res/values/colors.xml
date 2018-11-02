@@ -5,4 +5,7 @@
     <color name="colorPrimaryLight">#D1C4E9</color>
     <color name="colorAccent">#FF5722</color>
     <color name="colorAccentLight">#FF8A50</color>
+    <color name="buttonOk">#1eb300</color>
+    <color name="buttonDelete">#b30006</color>
+    <color name="buttonDisabled">#c1c1c1</color>
 </resources>

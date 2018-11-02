@@ -11,7 +11,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="12"
-        android:text="@string/sampleProduct_Name"
+        android:text="@string/product_edit_hint_name"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:paddingBottom="4dp"
-        android:text="@string/sampleProduct_price"
+        android:text="@string/product_edit_hint_price"
         android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@id/product_price_label"
         app:layout_constraintTop_toBottomOf="@+id/product_name" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:paddingBottom="4dp"
-        android:text="@string/sampleProduct_qty"
+        android:text="@string/product_edit_hint_qty"
         android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@id/product_qty_label"
         app:layout_constraintTop_toBottomOf="@+id/product_name" />

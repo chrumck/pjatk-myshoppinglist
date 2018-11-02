@@ -57,14 +57,27 @@ public class DbHelper extends SQLiteOpenHelper {
         return products;
     }
 
+    public Product getSingleProduct(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_NAME.id + " = ?",
+                new String[]{Integer.toString(id)}, null, null, null);
+        cursor.moveToNext();
+        return toProduct(cursor);
+    }
+
     public void upsertProduct(Product product) {
         SQLiteDatabase db = this.getWritableDatabase();
         if (getProductExists(db, product)) {
             db.update(TABLE_NAME, toContentValues(product),
                     COLUMN_NAME.id + " = ?", new String[]{Integer.toString(product.id)});
         } else {
-            product.id =  (int)db.insert(TABLE_NAME, null, toContentValues(product));
+            product.id = (int) db.insert(TABLE_NAME, null, toContentValues(product));
         }
+    }
+
+    public void deleteProduct(int productId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COLUMN_NAME.id + " = ?", new String[]{ Integer.toString(productId)});
     }
 
     private static ContentValues toContentValues(Product product) {
