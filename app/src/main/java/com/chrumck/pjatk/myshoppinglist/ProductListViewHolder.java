@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
-public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ProductListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private static DecimalFormat formatPrice = new DecimalFormat("$#.00");
 
     private Context context;
@@ -26,7 +26,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private boolean isEditEnabled;
 
-    public ProductViewHolder(View view, Context context) {
+    public ProductListViewHolder(View view, Context context) {
         super(view);
 
         this.context = context;
