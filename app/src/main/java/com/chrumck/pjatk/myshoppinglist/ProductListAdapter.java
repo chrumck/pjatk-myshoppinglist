@@ -10,13 +10,11 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
-    private static DecimalFormat formatPrice = new DecimalFormat("$#.00");
-
-    private List<Product> list;
+    private List<Product> products;
     private Context context;
 
-    public ProductListAdapter(List<Product> list, Context context) {
-        this.list = list;
+    public ProductListAdapter(List<Product> products, Context context) {
+        this.products = products;
         this.context = context;
     }
 
@@ -31,15 +29,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> 
 
     @Override
     public void onBindViewHolder(ProductViewHolder viewHolder, int position) {
-        Product product = list.get(position);
-        viewHolder.name.setText(product.name);
-        viewHolder.price.setText(formatPrice.format(product.price));
-        viewHolder.qty.setText(Integer.toString(product.quantity));
-        viewHolder.bought.setChecked(product.bought);
+        viewHolder.bind(products.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return products.size();
     }
 }
