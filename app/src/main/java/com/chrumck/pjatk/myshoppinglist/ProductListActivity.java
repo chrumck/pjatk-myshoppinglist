@@ -8,7 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -35,17 +35,8 @@ public class ProductListActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        ProductListAdapter adapter = new ProductListAdapter(getItems(), this);
+        List<Product> allProducts = new DbHelper(this).getAllProducts();
+        ProductListAdapter adapter = new ProductListAdapter(allProducts, this);
         recyclerView.setAdapter(adapter);
-    }
-
-    private List<Product> getItems() {
-        List<Product> items = new ArrayList<>();
-
-        items.add(new Product("Item1", 5, 6));
-        items.add(new Product("Item2", 56.345677, 7));
-        items.add(new Product("Item3", 566, 8));
-        items.add(new Product("Item4", 5666, 9));
-        return items;
     }
 }
