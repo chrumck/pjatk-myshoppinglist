@@ -1,10 +1,13 @@
 package com.chrumck.pjatk.myshoppinglist;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +32,11 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_PRODUCT_EXISTS = "SELECT * FROM " + TABLE_NAME +
             " WHERE " + COLUMN_NAME.id + " = ?";
 
+    private final Context context;
+
     DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -72,12 +78,24 @@ public class DbHelper extends SQLiteOpenHelper {
                     COLUMN_NAME.id + " = ?", new String[]{Integer.toString(product.id)});
         } else {
             product.id = (int) db.insert(TABLE_NAME, null, toContentValues(product));
+
+            broadcastProductCreated(product);
         }
     }
 
     public void deleteProduct(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_NAME.id + " = ?", new String[]{ Integer.toString(productId)});
+        db.delete(TABLE_NAME, COLUMN_NAME.id + " = ?", new String[]{Integer.toString(productId)});
+    }
+
+    private void broadcastProductCreated(Product product) {
+        Intent intent = new Intent(context.getResources().getString(R.string.app_action_product_created));
+        intent.putExtra(COLUMN_NAME.id.toString(), product.id);
+        intent.putExtra(COLUMN_NAME.name.toString(), product.name);
+        intent.putExtra(COLUMN_NAME.quantity.toString(), product.quantity);
+        context.sendBroadcast(intent, context.getResources().getString(R.string.app_permission_broadcast));
+
+        Log.i("DbHelper", "broadcast intent: " + intent.getAction());
     }
 
     private static ContentValues toContentValues(Product product) {

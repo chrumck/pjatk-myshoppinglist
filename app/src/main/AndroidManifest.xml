@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.chrumck.pjatk.myshoppinglist">
 
+    <uses-permission android:name="com.chrumck.pjatk.notificationservice.permission.BROADCAST_REC" />
+
+    <permission
+        android:name="com.chrumck.pjatk.myshoppinglist.permission.BROADCAST"
+        android:protectionLevel="normal" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
