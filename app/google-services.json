@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "179492356776",
+    "firebase_url": "https://chrumck-myshoppinglist.firebaseio.com",
+    "project_id": "chrumck-myshoppinglist",
+    "storage_bucket": "chrumck-myshoppinglist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179492356776:android:d80927e76f6d181d",
+        "android_client_info": {
+          "package_name": "com.chrumck.pjatk.myshoppinglist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179492356776-nqi59i45cudqbvadmttj44ulahkq3gla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chrumck.pjatk.myshoppinglist",
+            "certificate_hash": "9b6dfeb07169bf896de322c7f7afd4edf2839b6f"
+          }
+        },
+        {
+          "client_id": "179492356776-gsjkj6498474r0vnn5d3r1n1edhbklog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu_LAyWKjda0dBsPwWyX8u9eIMKSWbu94"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179492356776-gsjkj6498474r0vnn5d3r1n1edhbklog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
