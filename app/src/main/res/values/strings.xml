@@ -11,6 +11,14 @@
     <string name="title_activity_product_list">Shopping List</string>
     <string name="title_activity_product_edit">EditActivity</string>
 
+    <string name="progress_loading">Loading…</string>
+
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_hint_login">Log In</string>
+    <string name="login_hint_logout">Log Out</string>
+    <string name="login_hint_create">Create Account</string>
+
     <string name="btn_showShoppingList">Shopping List</string>
     <string name="btn_showSettings">Settings</string>
 
