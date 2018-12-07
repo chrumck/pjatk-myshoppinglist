@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHolder> {
 
-    private List<Product> products;
+    public List<Product> products;
     private Context context;
 
     public ProductListAdapter(List<Product> products, Context context) {

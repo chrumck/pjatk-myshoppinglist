@@ -9,83 +9,112 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
-public class DbHelper extends SQLiteOpenHelper {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+public class DbHelper {
     public enum COLUMN_NAME {id, name, price, quantity, bought}
 
-    public static final String TABLE_NAME = "Products";
-    private static final String DATABASE_NAME = "MyShoppingList.db";
-    private static final int DATABASE_VERSION = 5;
-
-    private static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
-            COLUMN_NAME.id + " INTEGER PRIMARY KEY," +
-            COLUMN_NAME.name + " TEXT," +
-            COLUMN_NAME.price + " REAL," +
-            COLUMN_NAME.quantity + " INTEGER," +
-            COLUMN_NAME.bought + " NUMERIC);";
-
-    private static final String SQL_DELETE_TABLE =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
-
-    private static final String SQL_PRODUCT_EXISTS = "SELECT * FROM " + TABLE_NAME +
-            " WHERE " + COLUMN_NAME.id + " = ?";
+    private static GenericTypeIndicator<Map<String, Product>> ListOfProductsType =
+            new GenericTypeIndicator<Map<String, Product>>() {
+            };
 
     private final Context context;
+    private final DatabaseReference dbReference;
 
     DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+
+        dbReference = FirebaseDatabase.getInstance().getReference()
+                .child(context.getString(R.string.firebase_ref_products));
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_TABLE);
+    public CompletableFuture<List<Product>> getAllProducts() {
+
+        CompletableFuture<List<Product>> result = new CompletableFuture();
+
+        dbReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        result.complete(new ArrayList(dataSnapshot.getValue(ListOfProductsType).values()));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e("TAG:", "Failed to read value.", error.toException());
+                        result.cancel(false);
+                    }
+                });
+
+        return result;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_TABLE);
-        onCreate(db);
-    }
-
-    public List<Product> getAllProducts() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
-
-        List<Product> products = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            products.add(toProduct(cursor));
+    public CompletableFuture<Product> getSingleProduct(String id) {
+        if (id == null) {
+            return CompletableFuture.completedFuture(null);
         }
-        cursor.close();
 
-        return products;
+        CompletableFuture<Product> result = new CompletableFuture();
+
+        dbReference.child(id).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot == null || snapshot.getValue() == null) {
+                            result.complete(null);
+                        }
+
+                        result.complete(snapshot.getValue(Product.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e("TAG:", "Failed to read value.", error.toException());
+                        result.cancel(false);
+                    }
+                });
+
+        return result;
     }
 
-    public Product getSingleProduct(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_NAME.id + " = ?",
-                new String[]{Integer.toString(id)}, null, null, null);
-        cursor.moveToNext();
-        return toProduct(cursor);
+    public CompletableFuture<Product> upsertProduct(Product product) {
+        return getSingleProduct(product.id).thenCompose(saved -> {
+            if (saved == null) product.id = dbReference.push().getKey();
+
+            CompletableFuture<Product> result = new CompletableFuture();
+            dbReference.child(product.id).setValue(product, (error, ref) -> {
+                if (error == null) {
+                    if (saved != null) broadcastProductCreated(product);
+                    result.complete(product);
+                } else {
+                    result.cancel(false);
+                }
+            });
+
+            return result;
+        });
     }
 
-    public void upsertProduct(Product product) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (getProductExists(db, product)) {
-            db.update(TABLE_NAME, toContentValues(product),
-                    COLUMN_NAME.id + " = ?", new String[]{Integer.toString(product.id)});
-        } else {
-            product.id = (int) db.insert(TABLE_NAME, null, toContentValues(product));
+    public CompletableFuture deleteProduct(String productId) {
+        CompletableFuture result = new CompletableFuture();
 
-            broadcastProductCreated(product);
-        }
-    }
+        dbReference.child(productId).removeValue((error, ref) -> {
+            if (error == null) result.complete(null);
+            else result.cancel(false);
+        });
 
-    public void deleteProduct(int productId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_NAME.id + " = ?", new String[]{Integer.toString(productId)});
+        return result;
     }
 
     private void broadcastProductCreated(Product product) {
@@ -96,37 +125,5 @@ public class DbHelper extends SQLiteOpenHelper {
         context.sendBroadcast(intent, context.getResources().getString(R.string.app_permission_broadcast));
 
         Log.i("DbHelper", "broadcast intent: " + intent.getAction());
-    }
-
-    private static ContentValues toContentValues(Product product) {
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_NAME.name.toString(), product.name);
-        values.put(COLUMN_NAME.price.toString(), product.price);
-        values.put(COLUMN_NAME.quantity.toString(), product.quantity);
-        values.put(COLUMN_NAME.bought.toString(), product.bought);
-
-        return values;
-    }
-
-    private static Product toProduct(Cursor cursor) {
-        int id = cursor.getInt(getColumnIndex(cursor, COLUMN_NAME.id));
-        String name = cursor.getString(getColumnIndex(cursor, COLUMN_NAME.name));
-        double price = cursor.getDouble(getColumnIndex(cursor, COLUMN_NAME.price));
-        int quantity = cursor.getInt(getColumnIndex(cursor, COLUMN_NAME.quantity));
-        boolean bought = cursor.getInt(getColumnIndex(cursor, COLUMN_NAME.bought)) == 1;
-
-        return new Product(id, name, price, quantity, bought);
-    }
-
-    private static int getColumnIndex(Cursor cursor, COLUMN_NAME name) {
-        return cursor.getColumnIndexOrThrow(name.toString());
-    }
-
-    private static boolean getProductExists(SQLiteDatabase db, Product product) {
-        Cursor cursor = db.rawQuery(SQL_PRODUCT_EXISTS, new String[]{Integer.toString(product.id)});
-        int count = cursor.getCount();
-        cursor.close();
-        return count == 1;
     }
 }

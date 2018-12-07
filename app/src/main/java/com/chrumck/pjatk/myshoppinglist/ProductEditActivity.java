@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-public class ProductEditActivity extends AppCompatActivity {
+public class ProductEditActivity extends BaseActivity {
     private DbHelper dbHelper;
 
     @Override
@@ -27,34 +27,46 @@ public class ProductEditActivity extends AppCompatActivity {
         CheckBox bought = findViewById(R.id.edit_bought);
 
         Intent intent = getIntent();
-        int productId = intent.getIntExtra(DbHelper.COLUMN_NAME.id.toString(), 0);
-        if (productId != 0) {
-            Product product = dbHelper.getSingleProduct(productId);
-            name.setText(product.name);
-            price.setText(Double.toString(product.price));
-            qty.setText(Integer.toString(product.quantity));
-            if (product.bought) bought.setChecked(true);
+        String productId = intent.getStringExtra(DbHelper.COLUMN_NAME.id.toString());
 
-            findViewById(R.id.edit_btn_delete).setOnClickListener(v -> {
-                dbHelper.deleteProduct(productId);
-                startActivity(new Intent(this, ProductListActivity.class));
+        if (productId != null) {
+            showProgressDialog("Loading product...");
+            dbHelper.getSingleProduct(productId).thenAccept(product -> {
+                name.setText(product.name);
+                price.setText(Double.toString(product.price));
+                qty.setText(Long.toString(product.quantity));
+                if (product.bought) bought.setChecked(true);
+
+                hideProgressDialog();
             });
+
         } else {
             findViewById(R.id.edit_btn_delete).setVisibility(View.GONE);
         }
 
-        findViewById(R.id.edit_btn_cancel).setOnClickListener(v -> finish());
-
         findViewById(R.id.edit_btn_save).setOnClickListener(v -> {
+            showProgressDialog("Saving...");
             dbHelper.upsertProduct(new Product(
                     productId,
                     name.getText().toString(),
                     Double.parseDouble(price.getText().toString()),
                     Integer.parseInt(qty.getText().toString()),
                     bought.isChecked()
-            ));
+            )).thenRun(() -> {
+                hideProgressDialog();
+                startActivity(new Intent(this, ProductListActivity.class));
+            });
 
-            startActivity(new Intent(this, ProductListActivity.class));
         });
+
+        findViewById(R.id.edit_btn_delete).setOnClickListener(v -> {
+            showProgressDialog("Deleting...");
+            dbHelper.deleteProduct(productId).thenRun(() -> {
+                hideProgressDialog();
+                startActivity(new Intent(this, ProductListActivity.class));
+            });
+        });
+
+        findViewById(R.id.edit_btn_cancel).setOnClickListener(v -> finish());
     }
 }

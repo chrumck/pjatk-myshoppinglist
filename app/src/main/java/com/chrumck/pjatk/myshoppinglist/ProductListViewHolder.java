@@ -66,7 +66,7 @@ public class ProductListViewHolder extends RecyclerView.ViewHolder implements Vi
 
         name.setText(product.name);
         price.setText(formatPrice.format(product.price));
-        qty.setText(Integer.toString(product.quantity));
+        qty.setText(Long.toString(product.quantity));
         bought.setChecked(product.bought);
     }
 

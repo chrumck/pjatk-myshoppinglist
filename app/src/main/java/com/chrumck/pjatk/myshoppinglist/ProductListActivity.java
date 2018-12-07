@@ -3,21 +3,19 @@ package com.chrumck.pjatk.myshoppinglist;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends BaseActivity {
     private RecyclerView recyclerView;
 
     @Override
@@ -50,8 +48,15 @@ public class ProductListActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        List<Product> allProducts = new DbHelper(this).getAllProducts();
+        List<Product> allProducts = new ArrayList<>();
         ProductListAdapter adapter = new ProductListAdapter(allProducts, this);
         recyclerView.setAdapter(adapter);
+
+        showProgressDialog("Loading list...");
+        new DbHelper(this).getAllProducts().thenAccept(products -> {
+            adapter.products = products;
+            adapter.notifyDataSetChanged();
+            hideProgressDialog();
+        });
     }
 }
