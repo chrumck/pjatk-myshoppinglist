@@ -95,7 +95,7 @@ public class DbHelper {
             CompletableFuture<Product> result = new CompletableFuture();
             dbReference.child(product.id).setValue(product, (error, ref) -> {
                 if (error == null) {
-                    if (saved != null) broadcastProductCreated(product);
+                    if (saved == null) broadcastProductCreated(product);
                     result.complete(product);
                 } else {
                     result.cancel(false);
