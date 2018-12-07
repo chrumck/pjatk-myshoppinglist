@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        showProgressDialog();
+        showProgressDialog("Creating account...");
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        showProgressDialog();
+        showProgressDialog("Logging in...");
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
@@ -158,6 +158,4 @@ public class MainActivity extends BaseActivity {
             findViewById(R.id.layout_main).setVisibility(View.INVISIBLE);
         }
     }
-
-
 }

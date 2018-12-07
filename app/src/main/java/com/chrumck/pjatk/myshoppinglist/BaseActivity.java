@@ -7,13 +7,14 @@ public class BaseActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-    protected void showProgressDialog() {
+    protected void showProgressDialog(String message) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage(getString(R.string.progress_loading));
             progressDialog.setIndeterminate(true);
+
         }
 
+        progressDialog.setMessage(message);
         progressDialog.show();
     }
 
