@@ -8,8 +8,10 @@
     <string name="app_permission_broadcast">com.chrumck.pjatk.myshoppinglist.permission.BROADCAST</string>
 
     <string name="firebase_ref_products">Products</string>
+    <string name="firebase_ref_shops">Shops</string>
 
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_shop_list">Shops</string>
     <string name="title_activity_product_list">Shopping List</string>
     <string name="title_activity_product_edit">EditActivity</string>
 
@@ -19,6 +21,7 @@
     <string name="login_hint_logout">Log Out</string>
     <string name="login_hint_create">Create Account</string>
 
+    <string name="btn_showShopsList">Shops</string>
     <string name="btn_showShoppingList">Shopping List</string>
     <string name="btn_showSettings">Settings</string>
 
@@ -34,6 +37,14 @@
     <string name="product_edit_hint_price">Price</string>
     <string name="product_edit_hint_qty">Quantity</string>
     <string name="product_edit_label_bought">Bought:</string>
+
+    <string name="shop_list_radius_label">Radius:</string>
+
+    <string name="shop_edit_hint_name">Shop Name</string>
+    <string name="shop_edit_hint_description">Description</string>
+    <string name="shop_edit_hint_latitude">Latitude</string>
+    <string name="shop_edit_hint_longitude">Longitude</string>
+    <string name="shop_edit_hint_radius">Radius</string>
 
     <string name="btn_Save">Save</string>
     <string name="btn_Cancel">Cancel</string>

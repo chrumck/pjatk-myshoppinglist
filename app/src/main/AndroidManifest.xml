@@ -28,6 +28,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ShopListActivity"
+            android:label="@string/title_activity_shop_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
+        </activity>
+        <activity
             android:name=".ProductListActivity"
             android:label="@string/title_activity_product_list"
             android:parentActivityName=".MainActivity"
@@ -44,6 +53,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ShopEditActivity"
+            android:label="Add / Edit"
+            android:parentActivityName=".ShopListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chrumck.pjatk.myshoppinglist.ShopListActivity" />
         </activity>
         <activity
             android:name=".ProductEditActivity"

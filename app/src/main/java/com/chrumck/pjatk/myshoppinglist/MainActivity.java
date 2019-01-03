@@ -29,6 +29,8 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.main_activity);
 
+        findViewById(R.id.btn_showShopsList).setOnClickListener(v ->
+                startActivity(new Intent(this, ShopListActivity.class)));
         findViewById(R.id.btn_showShoppingList).setOnClickListener(v ->
                 startActivity(new Intent(this, ProductListActivity.class)));
         findViewById(R.id.btn_showSettings).setOnClickListener(v ->

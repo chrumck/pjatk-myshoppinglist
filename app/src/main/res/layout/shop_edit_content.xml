@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ShopEditActivity"
+    tools:showIn="@layout/shop_edit_activity">
+
+
+    <EditText
+        android:id="@+id/edit_shop_name"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_name"
+        android:inputType="textAutoCorrect"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_shop_description"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_description"
+        android:inputType="textAutoCorrect"
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_name" />
+
+    <EditText
+        android:id="@+id/edit_shop_latitude"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_latitude"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_description" />
+
+    <EditText
+        android:id="@+id/edit_shop_longitude"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_longitude"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_latitude" />
+
+    <EditText
+        android:id="@+id/edit_shop_radius"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_radius"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_longitude" />
+
+    <LinearLayout
+        style="@style/EditTextDefault"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/edit_shop_btn_delete"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/buttonDelete"
+            android:text="@string/btn_Delete" />
+
+        <Button
+            android:id="@+id/edit_shop_btn_cancel"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:background="@color/grey_300"
+            android:text="@string/btn_Cancel" />
+
+        <Button
+            android:id="@+id/edit_shop_btn_save"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/buttonOk"
+            android:text="@string/btn_Save" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

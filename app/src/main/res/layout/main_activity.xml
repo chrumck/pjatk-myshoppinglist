@@ -75,9 +75,15 @@
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:visibility="invisible"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/btn_showShopsList"
+            android:background="@color/buttonOk"
+            style="@style/ButtonMain"
+            android:text="@string/btn_showShopsList" />
 
         <Button
             android:id="@+id/btn_showShoppingList"
