@@ -1,12 +1,8 @@
 package com.chrumck.pjatk.myshoppinglist;
 
-import android.Manifest;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +13,6 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -41,17 +36,17 @@ public class DbHelper {
 
     public CompletableFuture<List<Product>> getAllProducts() {
 
-        CompletableFuture<List<Product>> result = new CompletableFuture();
+        CompletableFuture<List<Product>> result = new CompletableFuture<>();
 
         dbReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         result.complete(new ArrayList(dataSnapshot.getValue(ListOfProductsType).values()));
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {
+                    public void onCancelled(@NonNull DatabaseError error) {
                         Log.e("TAG:", "Failed to read value.", error.toException());
                         result.cancel(false);
                     }
@@ -65,13 +60,13 @@ public class DbHelper {
             return CompletableFuture.completedFuture(null);
         }
 
-        CompletableFuture<Product> result = new CompletableFuture();
+        CompletableFuture<Product> result = new CompletableFuture<>();
 
         dbReference.child(id).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        if (snapshot == null || snapshot.getValue() == null) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.getValue() == null) {
                             result.complete(null);
                         }
 
@@ -79,7 +74,7 @@ public class DbHelper {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {
+                    public void onCancelled(@NonNull DatabaseError error) {
                         Log.e("TAG:", "Failed to read value.", error.toException());
                         result.cancel(false);
                     }
@@ -92,7 +87,7 @@ public class DbHelper {
         return getSingleProduct(product.id).thenCompose(saved -> {
             if (saved == null) product.id = dbReference.push().getKey();
 
-            CompletableFuture<Product> result = new CompletableFuture();
+            CompletableFuture<Product> result = new CompletableFuture<>();
             dbReference.child(product.id).setValue(product, (error, ref) -> {
                 if (error == null) {
                     if (saved == null) broadcastProductCreated(product);
