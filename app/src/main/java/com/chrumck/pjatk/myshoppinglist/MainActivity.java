@@ -31,6 +31,8 @@ public class MainActivity extends BaseActivity {
 
         findViewById(R.id.btn_showShopsList).setOnClickListener(v ->
                 startActivity(new Intent(this, ShopListActivity.class)));
+        findViewById(R.id.btn_showShopsMap).setOnClickListener(v ->
+                startActivity(new Intent(this, ShopMapActivity.class)));
         findViewById(R.id.btn_showShoppingList).setOnClickListener(v ->
                 startActivity(new Intent(this, ProductListActivity.class)));
         findViewById(R.id.btn_showSettings).setOnClickListener(v ->

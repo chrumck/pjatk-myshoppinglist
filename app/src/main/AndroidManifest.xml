@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.location.network" />
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -24,9 +25,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBB-Y6g7RH_v3P7SzM9EJJmzOsEOpFS8qw"/>
+            android:value="AIzaSyBB-Y6g7RH_v3P7SzM9EJJmzOsEOpFS8qw" />
 
         <activity
             android:name=".MainActivity"
@@ -38,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ShopListActivity"
             android:label="@string/title_activity_shop_list"
@@ -48,7 +50,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
         </activity>
-
+        <activity
+            android:name=".ShopMapActivity"
+            android:label="@string/title_activity_shop_map"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
+        </activity>
         <activity
             android:name=".ProductListActivity"
             android:label="@string/title_activity_product_list"
@@ -58,7 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
         </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -68,7 +77,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.MainActivity" />
         </activity>
-
         <activity
             android:name=".ShopEditActivity"
             android:label="Add / Edit"
@@ -78,7 +86,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.chrumck.pjatk.myshoppinglist.ShopListActivity" />
         </activity>
-
         <activity
             android:name=".ProductEditActivity"
             android:label="Add / Edit"

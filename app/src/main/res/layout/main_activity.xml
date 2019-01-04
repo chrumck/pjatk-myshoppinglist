@@ -86,6 +86,12 @@
             android:text="@string/btn_showShopsList" />
 
         <Button
+            android:id="@+id/btn_showShopsMap"
+            android:background="@color/grey_500"
+            style="@style/ButtonMain"
+            android:text="@string/btn_showShopsMap" />
+
+        <Button
             android:id="@+id/btn_showShoppingList"
             style="@style/ButtonMain"
             android:text="@string/btn_showShoppingList" />
