@@ -85,8 +85,8 @@ public class ShopEditActivity extends BaseActivity {
                     !TextUtils.isEmpty(radius.getText())) {
 
                 newShop.location = new Shop.ShopLocation(
-                        Double.parseDouble(longitude.getText().toString()),
                         Double.parseDouble(latitude.getText().toString()),
+                        Double.parseDouble(longitude.getText().toString()),
                         Float.parseFloat(radius.getText().toString()));
             }
 
