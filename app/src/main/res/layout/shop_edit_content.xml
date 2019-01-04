@@ -24,11 +24,18 @@
         app:layout_constraintTop_toBottomOf="@id/edit_shop_name" />
 
     <EditText
+        android:id="@+id/edit_shop_url"
+        style="@style/EditTextDefault"
+        android:hint="@string/shop_edit_hint_url"
+        android:inputType="textUri"
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_description" />
+
+    <EditText
         android:id="@+id/edit_shop_latitude"
         style="@style/EditTextDefault"
         android:hint="@string/shop_edit_hint_latitude"
         android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/edit_shop_description" />
+        app:layout_constraintTop_toBottomOf="@id/edit_shop_url" />
 
     <EditText
         android:id="@+id/edit_shop_longitude"
@@ -45,8 +52,25 @@
         app:layout_constraintTop_toBottomOf="@id/edit_shop_longitude" />
 
     <LinearLayout
-        style="@style/EditTextDefault"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/edit_shop_layout_edit_buttons">
+
+        <Button
+            android:id="@+id/edit_shop_btn_find_nearest"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccentLight"
+            android:text="@string/btn_find_nearest" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edit_shop_layout_edit_buttons"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
