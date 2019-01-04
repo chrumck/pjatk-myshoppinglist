@@ -158,7 +158,7 @@ public class ShopEditActivity extends BaseActivity {
                 if (latLng != null) {
                     latitude.setText(Double.toString(latLng.latitude));
                     longitude.setText(Double.toString(latLng.longitude));
-                    radius.setText(Float.toString(10));
+                    radius.setText(getResources().getString(R.string.shop_default_radius));
                 }
 
                 likelyPlaces.release();

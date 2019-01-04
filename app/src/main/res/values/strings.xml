@@ -54,4 +54,6 @@
     <string name="btn_Delete">Delete</string>
     <string name="btn_find_nearest">Find Nearest</string>
 
+    <string name="shop_default_radius">100</string>
+
 </resources>
